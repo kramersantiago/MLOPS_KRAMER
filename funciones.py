@@ -1,6 +1,8 @@
 # Importar librerias necesarias
 import pandas as pd
 import ast
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -197,3 +199,40 @@ def developer_reviews_analysis(desarrolladora):
     }
 
     return result
+
+# -------------------------------------------------------------------------- Funcion recomendacion_juego --------------------------------------------------------------------- 
+
+# Crear un DF con las columnas necesarias
+df_games_specs = df_steam_games.loc[:, ["specs", "item_id", "title"]]
+
+# Eliminar datos nulos
+df_games_specs = df_games_specs.dropna()
+
+# Limpiar la columna "specs"
+df_games_specs['specs'] = df_games_specs['specs'].apply(lambda x: str(x).replace('[', '').replace(']', '').replace("'", ''))
+
+
+# Crear una instancia de CountVectorizer
+cv = CountVectorizer()
+
+# Ajustar y transformar el texto en una matriz dispersa
+vector = cv.fit_transform(df_games_specs['specs']).toarray()
+
+# Calcular la similitud del coseno entre los valores de la columna "specs"
+similarity = cosine_similarity(vector)
+
+
+def recomendacion_juego(id_de_producto):
+    # Buscar el indice ingresado en el DF "df_games_specs"
+    item_id = df_games_specs[df_games_specs["item_id"] == id_de_producto].index[0]
+    
+    # Similitud entre el juego de entrada y todos los demás juegos en el conjunto de datos
+    similar_scores = similarity[item_id]
+    
+    # Ordenar de manera descendente y seleccionar los cinco juegos más similares
+    similar_items = sorted(list(enumerate(similar_scores)), reverse=True, key=lambda x: x[1])[1:6]
+    
+    # Devolver la lista de títulos recomendados
+    recommended_titles = [df_games_specs.iloc[e[0]]['title'] for e in similar_items]
+    
+    return recommended_titles

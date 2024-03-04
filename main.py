@@ -1,8 +1,6 @@
 from fastapi import FastAPI
-import os
 import funciones
 from funciones import *
-from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 # http://127.0.0.1:8000
@@ -18,15 +16,15 @@ app = FastAPI()
             <h1 style="color: ffff00;">INSTRUCCIONES</h1>
             <h3 style="color: ffff00; font-family: 'Trebuchet MS';">
                 1. Haga clic en "Try it out".<br>
-                2. Ingrese el desarrollador en el cuadro de abajo.<br>
+                2. Ingrese el desarrollador en el cuadro debajo de "description".<br>
                 3. Cantidad de items y porcentaje de contenido Free por año según empresa desarrolladora.<br>
-                4. Sugerencia de usuarios: Valve, Ubisoft, Capcom, Epic Games, Rockstar Games, Sega.<br>
+                4. Sugerencia de usuarios: Valve, Ubisoft, Rockstar Games.<br>
                 5. Para cambiar de usuario, copie y pegue de las sugerencias y presione Execute nuevamente.
             </h3>         
         </body>
     </html>
     """,
-         tags=["Consultas Developer"])
+         tags=["Consultas developer"])
 
 def developer(desarrollador: str):
     result = funciones.developer(desarrollador)
@@ -41,15 +39,15 @@ def developer(desarrollador: str):
             <h1>INSTRUCCIONES</h1>
             <h3>
                 1. Haga clic en "Try it out".<br>
-                2. Ingrese el usuario en el cuadro de abajo.<br>
+                2. Ingrese el usuario en el cuadro debajo de "description".<br>
                 3. Observe el dinero gastado por el usuario, el porcentaje de recomendación y la cantidad de items que tiene el mismo.<br>
-                4. Sugerencia de usuarios: BrainsAccount, 76561197970982479, UTNerd24, AVATAR715, tarjla.<br>
+                4. Sugerencia de usuarios: BrainsAccount, 76561197970982479, AVATAR715, tarjla.<br>
                 5. Para cambiar de usuario, copie y pegue de las sugerencias y presione Execute nuevamente.
             </h3>         
         </body>
     </html>
     """,
-         tags=["Consultas de UserData"])
+         tags=["Consultas de userdata"])
 
 def userdata(user_id: str):
     result = funciones.userdata(user_id)
@@ -64,7 +62,7 @@ def userdata(user_id: str):
             <h1 style="color: ffff00;">INSTRUCCIONES</h1>
             <h3 style="color: ffff00; font-family: 'Trebuchet MS';">
                 1. Haga clic en "Try it out".<br>
-                2. Ingrese el usuario en el cuadro de abajo.<br>
+                2. Ingrese el usuario en el cuadro debajo de "description".<br>
                 3. El usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas por año de lanzamiento.<br>
                 4. Sugerencia de usuarios: Action, Strategy, Simulation, Racing.<br>
                 5. Para cambiar de usuario, copie y pegue de las sugerencias y presione Execute nuevamente.
@@ -72,7 +70,7 @@ def userdata(user_id: str):
         </body>
     </html>
     """,
-         tags=["Consultas User For Genre"])
+         tags=["Consultas UserForGenre"])
 
 def UserForGenre(genero: str):
     result = funciones.UserForGenre(genero)
@@ -87,15 +85,15 @@ def UserForGenre(genero: str):
             <h1 style="color: ffff00;">INSTRUCCIONES</h1>
             <h3 style="color: ffff00; font-family: 'Trebuchet MS';">
                 1. Haga clic en "Try it out".<br>
-                2. Ingrese el desarrollador en el cuadro de abajo.<br>
+                2. Ingrese el desarrollador en el cuadro debajo de "description".<br>
                 3. Devuelve el top 3 de desarrolladores con juegos MÁS recomendados por usuarios para el año dado<br>
                 4. Ingrese un año para obtener el resultado.<br>
-                5. Para cambiar de usuario, copie y pegue de las sugerencias y presione Execute nuevamente.
+                5. Para cambiar de desarrollador, copie y pegue de las sugerencias y presione Execute nuevamente.
             </h3>         
         </body>
     </html>
     """,
-         tags=["Consultas Best Developer Year"])
+         tags=["Consultas best_developer_year"])
 
 def best_developer_year(year: int):
     result = funciones.best_developer_year(year)
@@ -110,18 +108,41 @@ def best_developer_year(year: int):
             <h1 style="color: ffff00;">INSTRUCCIONES</h1>
             <h3 style="color: ffff00; font-family: 'Trebuchet MS';">
                 1. Haga clic en "Try it out".<br>
-                2. Ingrese el desarrollador en el cuadro de abajo.<br>
+                2. Ingrese el desarrollador en el cuadro debajo de "description".<br>
                 3. Según el desarrollador, se devuelve un diccionario con el nombre del desarrollador como llave<br>
                    y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados<br> 
                    con un análisis de sentimiento como valor positivo o negativo.<br>
-                4. Sugerencia de usuarios: Valve, Ubisoft, Capcom, Epic Games, Rockstar Games.<br>
-                5. Para cambiar de usuario, copie y pegue de las sugerencias y presione Execute nuevamente.
+                4. Sugerencia de usuarios: Valve, Ubisoft, Rockstar Games.<br>
+                5. Para cambiar de desarrollador, copie y pegue de las sugerencias y presione Execute nuevamente.
             </h3>         
         </body>
     </html>
     """,
-         tags=["Consultas Developer Reviews Analysis"])
+         tags=["Consultas developer_reviews_analysis"])
 
 def developer_reviews_analysis(desarrolladora: str):
     result = funciones.developer_reviews_analysis(desarrolladora)
+    return result
+
+# ---------------------------- Funcion recomendacion_juego ---------------------------- 
+
+@app.get(path='/recomendacion_juego',
+          description=""" 
+    <html>
+        <body style="background-color: #000000;">
+            <h1 style="color: ffff00;">INSTRUCCIONES</h1>
+            <h3 style="color: ffff00; font-family: 'Trebuchet MS';">
+                1. Haga clic en "Try it out".<br>
+                2. Ingrese el desarrollador en el cuadro debajo de "description".<br>
+                3. Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.<br>
+                4. Sugerencia de id de producto: 761140, 643980, 670290.<br>
+                5. Para cambiar de juego, copie y pegue de las sugerencias y presione Execute nuevamente.
+            </h3>         
+        </body>
+    </html>
+    """,
+         tags=["Consultas recomendacion_juego"])
+
+def recomendacion_juego(id_de_producto: int):
+    result = funciones.recomendacion_juego(id_de_producto)
     return result
