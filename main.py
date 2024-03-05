@@ -6,7 +6,7 @@ app = FastAPI()
 # http://127.0.0.1:8000
 
 #ruta_parquet = os.environ.get("archivos_parquet")
-
+df_games_specs = pd.read_parquet('Data/df_games_specs.parquet')
 # ---------------------------- Funcion developer ---------------------------- 
 
 @app.get(path='/developer',
@@ -143,6 +143,6 @@ def developer_reviews_analysis(desarrolladora: str):
     """,
          tags=["Consultas recomendacion_juego"])
 
-def recomendacion_juego(id_de_producto: int):
-    result = funciones.recomendacion_juego(id_de_producto)
-    return result
+def recomendacion_juego(item_id: str):
+    result = funciones.recomendacion_juego(item_id)
+    return {'result': result}
