@@ -23,7 +23,7 @@ Se nos asignaron 3 archivos JSON los cuáles fueron utilizados para este proyect
 
 <br/>
 
-**1. Data Engineering: ETL**
+### 1. Data Engineering: ETL
 
 - australian_user_reviews.json: Se llevó a cabo su ETL en el archivo de Jupyter Notebook ETL_user_reviews para posteriormente exportarlo en un archivo parquet con el fin de reducir el tamaño del archivo final: df_user_reviews.parquet.
 - australian_users_items.json: Se llevó su ETL en el Jupyter Notebook ETL_user_items y luego se exportó al archivo parquet df_user_items.parquet.
@@ -36,6 +36,20 @@ Se creó la columna "sentiment_analysis" aplicando análisis de sentimiento con 
 
 <br/>
 
-**2. API**
+### 2. API
 
-Se utilizó el framework FastAPI para crear la API y finalmente se la deployó utilizando Render. Este puede ser accedido en este [enlace](https://mlops-kramer.onrender.com/docs)
+Se utilizó el framework FastAPI para crear la API y finalmente se la deployó utilizando Render. Este puede ser accedido en este [enlace](https://mlops-kramer.onrender.com/docs). Esta misma cuenta con 6 endpoints los cuales se detallan a continuación:
+- Endpoint developer(developer): Devuelve la cantidad de items y porcentaje de contenido gratuito por año según la empresa desarrolladora.
+- Endpoint userdata(user_id): Devuelve la cantidad de dinero gastado por el usuario, el porcentaje de recomendación en base a la columna "recommend" y la cantidad de items.
+- Endpoint userforgenre(genero): Devuelve el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas por año de lanzamiento.
+- Endpoint bestdeveloperyear(year): Devuelve el top 3 de desarrolladores con juegos más recomendados por usuarios para el año dado.
+- Endpoint developerreviewsanalysis(developer): Devuelve un diccionario con el nombre del desarrollador ingresado como llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento como valor positivo o negativo.
+- Endpoint recomendacionjuego(item_id): Ingresando el item_id, se devuelve una lista con 5 juegos recomendados similares al ingresado.
+
+<br/>
+
+### 3. Modelo de Machine Learning
+
+Se creó un modelo de ML el cual consiste en un sistema de recomendación ítem-ítem que recibe el item_id y devuelve 5 videojuegos similares al ingresado en base a la **similitud del coseno**. Utilicé la librería Scikit-Learn para el modelo, utilziando un CountVectorizer() para transformar los datos de la columna "specs" la cual contiene especificaciones de cada videojuego en vectores para calcular la similitud entre entos videojuegos.
+
+
