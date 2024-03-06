@@ -48,7 +48,13 @@ Se utilizó el framework FastAPI para crear la API y finalmente se la deployó u
 
 <br/>
 
-### 3. Modelo de Machine Learning
+### EDA
+
+Se realizó un EDA con el fin de ver patrones en los datos que ayuden a la hora de realizar el modelo de Machine Learning para el sistema de recomendación de videojuegos.
+
+<br/>
+
+### 4. Modelo de Machine Learning
 
 Se creó un modelo de ML el cual consiste en un sistema de recomendación ítem-ítem que recibe el item_id y devuelve 5 videojuegos similares al ingresado en base a la **similitud del coseno**. Utilicé la librería Scikit-Learn para el modelo, utilziando un CountVectorizer() para transformar los datos de la columna "specs" la cual contiene especificaciones de cada videojuego en vectores para calcular la similitud entre entos videojuegos.
 
