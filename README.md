@@ -48,7 +48,7 @@ Se utilizó el framework FastAPI para crear la API y finalmente se la deployó u
 
 <br/>
 
-### EDA
+### 3. EDA
 
 Se realizó un EDA con el fin de ver patrones en los datos que ayuden a la hora de realizar el modelo de Machine Learning para el sistema de recomendación de videojuegos.
 
